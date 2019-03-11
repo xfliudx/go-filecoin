@@ -31,7 +31,7 @@ var paymentChannelCmd = &cmds.Command{
 	},
 }
 
-type createChannelResult struct {
+type CreateChannelResult struct {
 	Cid     cid.Cid
 	GasUsed types.GasUnits
 	Preview bool
@@ -91,7 +91,7 @@ message to be mined to get the channelID.`,
 			if err != nil {
 				return err
 			}
-			return re.Emit(&createChannelResult{
+			return re.Emit(&CreateChannelResult{
 				Cid:     cid.Cid{},
 				GasUsed: usedGas,
 				Preview: true,
@@ -113,15 +113,15 @@ message to be mined to get the channelID.`,
 			return err
 		}
 
-		return re.Emit(&createChannelResult{
+		return re.Emit(&CreateChannelResult{
 			Cid:     c,
 			GasUsed: types.NewGasUnits(0),
 			Preview: false,
 		})
 	},
-	Type: &createChannelResult{},
+	Type: &CreateChannelResult{},
 	Encoders: cmds.EncoderMap{
-		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, res *createChannelResult) error {
+		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, res *CreateChannelResult) error {
 			if res.Preview {
 				output := strconv.FormatUint(uint64(res.GasUsed), 10)
 				_, err := w.Write([]byte(output))
@@ -233,7 +233,7 @@ var voucherCmd = &cmds.Command{
 	},
 }
 
-type redeemResult struct {
+type RedeemResult struct {
 	Cid     cid.Cid
 	GasUsed types.GasUnits
 	Preview bool
@@ -285,7 +285,7 @@ var redeemCmd = &cmds.Command{
 			if err != nil {
 				return err
 			}
-			return re.Emit(&redeemResult{
+			return re.Emit(&RedeemResult{
 				Cid:     cid.Cid{},
 				GasUsed: usedGas,
 				Preview: true,
@@ -311,15 +311,15 @@ var redeemCmd = &cmds.Command{
 			return err
 		}
 
-		return re.Emit(&redeemResult{
+		return re.Emit(&RedeemResult{
 			Cid:     c,
 			GasUsed: types.NewGasUnits(0),
 			Preview: false,
 		})
 	},
-	Type: &redeemResult{},
+	Type: &RedeemResult{},
 	Encoders: cmds.EncoderMap{
-		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, res *redeemResult) error {
+		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, res *RedeemResult) error {
 			if res.Preview {
 				output := strconv.FormatUint(uint64(res.GasUsed), 10)
 				_, err := w.Write([]byte(output))
@@ -330,7 +330,7 @@ var redeemCmd = &cmds.Command{
 	},
 }
 
-type reclaimResult struct {
+type ReclaimResult struct {
 	Cid     cid.Cid
 	GasUsed types.GasUnits
 	Preview bool
@@ -376,7 +376,7 @@ var reclaimCmd = &cmds.Command{
 			if err != nil {
 				return err
 			}
-			return re.Emit(&reclaimResult{
+			return re.Emit(&ReclaimResult{
 				Cid:     cid.Cid{},
 				GasUsed: usedGas,
 				Preview: true,
@@ -397,15 +397,15 @@ var reclaimCmd = &cmds.Command{
 			return err
 		}
 
-		return re.Emit(&reclaimResult{
+		return re.Emit(&ReclaimResult{
 			Cid:     c,
 			GasUsed: types.NewGasUnits(0),
 			Preview: false,
 		})
 	},
-	Type: &reclaimResult{},
+	Type: &ReclaimResult{},
 	Encoders: cmds.EncoderMap{
-		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, res *reclaimResult) error {
+		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, res *ReclaimResult) error {
 			if res.Preview {
 				output := strconv.FormatUint(uint64(res.GasUsed), 10)
 				_, err := w.Write([]byte(output))
@@ -416,7 +416,7 @@ var reclaimCmd = &cmds.Command{
 	},
 }
 
-type closeResult struct {
+type CloseResult struct {
 	Cid     cid.Cid
 	GasUsed types.GasUnits
 	Preview bool
@@ -468,7 +468,7 @@ var closeCmd = &cmds.Command{
 			if err != nil {
 				return err
 			}
-			return re.Emit(&closeResult{
+			return re.Emit(&CloseResult{
 				Cid:     cid.Cid{},
 				GasUsed: usedGas,
 				Preview: true,
@@ -494,15 +494,15 @@ var closeCmd = &cmds.Command{
 			return err
 		}
 
-		return re.Emit(&closeResult{
+		return re.Emit(&CloseResult{
 			Cid:     c,
 			GasUsed: types.NewGasUnits(0),
 			Preview: false,
 		})
 	},
-	Type: &closeResult{},
+	Type: &CloseResult{},
 	Encoders: cmds.EncoderMap{
-		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, res *closeResult) error {
+		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, res *CloseResult) error {
 			if res.Preview {
 				output := strconv.FormatUint(uint64(res.GasUsed), 10)
 				_, err := w.Write([]byte(output))
@@ -513,7 +513,7 @@ var closeCmd = &cmds.Command{
 	},
 }
 
-type extendResult struct {
+type ExtendResult struct {
 	Cid     cid.Cid
 	GasUsed types.GasUnits
 	Preview bool
@@ -571,7 +571,7 @@ var extendCmd = &cmds.Command{
 			if err != nil {
 				return err
 			}
-			return re.Emit(&extendResult{
+			return re.Emit(&ExtendResult{
 				Cid:     cid.Cid{},
 				GasUsed: usedGas,
 				Preview: true,
@@ -592,15 +592,15 @@ var extendCmd = &cmds.Command{
 			return err
 		}
 
-		return re.Emit(&extendResult{
+		return re.Emit(&ExtendResult{
 			Cid:     c,
 			GasUsed: types.NewGasUnits(0),
 			Preview: false,
 		})
 	},
-	Type: &extendResult{},
+	Type: &ExtendResult{},
 	Encoders: cmds.EncoderMap{
-		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, res *extendResult) error {
+		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, res *ExtendResult) error {
 			if res.Preview {
 				output := strconv.FormatUint(uint64(res.GasUsed), 10)
 				_, err := w.Write([]byte(output))

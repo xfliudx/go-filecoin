@@ -8,11 +8,13 @@ import (
 	"strings"
 
 	"gx/ipfs/QmQtQrtNioesAWtrx8csBvfY37gTe94d6wQ3VikZUjxD39/go-ipfs-cmds"
-	"gx/ipfs/QmR8BauakNcBa3RbE4nbQu76PDiJgoQgz8AJdhJuiU4TAw/go-cid"
+	logging "gx/ipfs/QmbkT7eMTyXfpeyB3ZMxxcxg7XH8t6uXp49jqzz4HB7BGF/go-log"
 	"gx/ipfs/Qmde5VP1qUkyQXKCfmEUA7bP64V2HAptbJ7phuPp7jXWwg/go-ipfs-cmdkit"
 
 	"github.com/filecoin-project/go-filecoin/types"
 )
+
+var log = logging.Logger("commands")
 
 var chainCmd = &cmds.Command{
 	Helptext: cmdkit.HelpText{
@@ -33,7 +35,7 @@ var chainHeadCmd = &cmds.Command{
 		blocks := headTipset.ToSlice()
 		return re.Emit(blocks)
 	},
-	Type: []cid.Cid{},
+	Type: []*types.Block{},
 }
 
 var chainLsCmd = &cmds.Command{
