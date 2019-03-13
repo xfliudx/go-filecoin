@@ -523,6 +523,10 @@ func (node *Node) Start(ctx context.Context) error {
 		return errors.Wrap(err, "failed to start heartbeat services")
 	}
 
+	if err := metrics.SetupMetrics(node.Repo.Config().Metrics); err != nil {
+		return errors.Wrap(err, "failed to setup metrics")
+	}
+
 	return nil
 }
 

@@ -150,6 +150,7 @@ func newDefaultHeartbeatConfig() *HeartbeatConfig {
 	}
 }
 
+// MetricsConfig holds all configuration options related to node metrics.
 type MetricsConfig struct {
 	// Enabled will enable prometheus metrics when true.
 	Enabled bool `json:"enabled"`

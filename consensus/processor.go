@@ -5,9 +5,13 @@ import (
 	"math/big"
 	"time"
 
+	"go.opencensus.io/stats"
+	"go.opencensus.io/tag"
+
 	"github.com/filecoin-project/go-filecoin/actor"
 	"github.com/filecoin-project/go-filecoin/actor/builtin/account"
 	"github.com/filecoin-project/go-filecoin/address"
+	"github.com/filecoin-project/go-filecoin/metrics"
 	"github.com/filecoin-project/go-filecoin/state"
 	"github.com/filecoin-project/go-filecoin/types"
 	"github.com/filecoin-project/go-filecoin/vm"
@@ -95,8 +99,15 @@ func NewConfiguredProcessor(validator SignedMessageValidator, rewarder BlockRewa
 func (p *DefaultProcessor) ProcessBlock(ctx context.Context, st state.Tree, vms vm.StorageMap, blk *types.Block, ancestors []types.TipSet) ([]*ApplicationResult, error) {
 	var emptyResults []*ApplicationResult
 
+	ctx, err := tag.New(ctx, tag.Insert(metrics.KeyMethod, "ProcessBlock"))
+	if err != nil {
+		return nil, err
+	}
+
 	processBlkTimer := time.Now()
 	defer func() {
+		ms := float64(time.Since(processBlkTimer).Round(time.Millisecond)) / 1e6
+		stats.Record(ctx, metrics.MProcessBlockMs.M(ms))
 		log.Infof("[TIMER] DefaultProcessor.ProcessBlock BlkCID: %s - elapsed time: %s", blk.Cid(), time.Since(processBlkTimer).Round(time.Millisecond))
 	}()
 
