@@ -278,8 +278,15 @@ func (p *DefaultProcessor) ApplyMessage(ctx context.Context, st state.Tree, vms 
 		return nil, errors.FaultErrorWrap(err, "could not get message cid")
 	}
 
+	ctx, err = tag.New(ctx, tag.Insert(metrics.KeyMethod, "ApplyMessage"))
+	if err != nil {
+		return nil, err
+	}
+
 	applyMsgTimer := time.Now()
 	defer func() {
+		ms := float64(time.Since(applyMsgTimer).Round(time.Millisecond)) / 1e6
+		stats.Record(ctx, metrics.MApplyMessageMs.M(ms))
 		log.Infof("[TIMER] DefaultProcessor.ApplyMessage CID: %s - elapsed time: %s", msgCid.String(), time.Since(applyMsgTimer).Round(time.Millisecond))
 	}()
 
