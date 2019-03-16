@@ -28,5 +28,5 @@ func Check(version string) bool {
 	}
 
 	patchVersion, _ := strconv.Atoi(pieces[2])
-	return patchVersion >= 1
+	return patchVersion >= 2
 }

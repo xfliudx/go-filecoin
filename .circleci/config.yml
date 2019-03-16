@@ -123,8 +123,8 @@ jobs:
       - run:
           name: Install go
           command: |
-            curl -O https://dl.google.com/go/go1.11.1.darwin-amd64.pkg && \
-            sudo installer -pkg go1.11.1.darwin-amd64.pkg -target /
+            curl -O https://dl.google.com/go/go1.11.5.darwin-amd64.pkg && \
+            sudo installer -pkg go1.11.5.darwin-amd64.pkg -target /
       - run:
           name: Install pkg-config
           command: HOMEBREW_NO_AUTO_UPDATE=1 brew install pkg-config
@@ -191,7 +191,7 @@ jobs:
 
   build_linux:
     docker:
-      - image: circleci/golang:1.11.1
+      - image: circleci/golang:1.11.5
 
     working_directory: /go/src/github.com/filecoin-project/go-filecoin
     resource_class: xlarge
@@ -336,7 +336,7 @@ jobs:
 
   build_faucet_and_genesis:
     docker:
-      - image: circleci/golang:1.11.1
+      - image: circleci/golang:1.11.5
     working_directory: /go/src/github.com/filecoin-project/go-filecoin
     resource_class: small
     steps:
