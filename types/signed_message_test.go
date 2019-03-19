@@ -43,6 +43,8 @@ func TestSignedMessageMarshal(t *testing.T) {
 	assert.NoError(err)
 
 	smsgBack := SignedMessage{}
+	assert.False(smsg.Equals(&smsgBack))
+
 	err = smsgBack.Unmarshal(marshalled)
 	assert.NoError(err)
 
@@ -54,6 +56,7 @@ func TestSignedMessageMarshal(t *testing.T) {
 	assert.Equal(smsg.GasPrice, smsgBack.GasPrice)
 	assert.Equal(smsg.GasLimit, smsgBack.GasLimit)
 	assert.Equal(smsg.Signature, smsgBack.Signature)
+	assert.True(smsg.Equals(&smsgBack))
 }
 
 func TestSignedMessageCid(t *testing.T) {

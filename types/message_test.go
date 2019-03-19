@@ -3,9 +3,10 @@ package types
 import (
 	"testing"
 
-	"github.com/filecoin-project/go-filecoin/address"
 	"gx/ipfs/QmPVkJMTeRC6iBByPWdrRkD3BE5UXsj5HPzb4kPqL186mS/testify/assert"
 	"gx/ipfs/QmPVkJMTeRC6iBByPWdrRkD3BE5UXsj5HPzb4kPqL186mS/testify/require"
+
+	"github.com/filecoin-project/go-filecoin/address"
 )
 
 func TestMessageMarshal(t *testing.T) {
@@ -28,6 +29,8 @@ func TestMessageMarshal(t *testing.T) {
 	assert.NoError(err)
 
 	msgBack := Message{}
+	assert.False(msg.Equals(&msgBack))
+
 	err = msgBack.Unmarshal(marshalled)
 	assert.NoError(err)
 
@@ -36,6 +39,7 @@ func TestMessageMarshal(t *testing.T) {
 	assert.Equal(msg.Value, msgBack.Value)
 	assert.Equal(msg.Method, msgBack.Method)
 	assert.Equal(msg.Params, msgBack.Params)
+	assert.True(msg.Equals(&msgBack))
 }
 
 func TestMessageCid(t *testing.T) {
